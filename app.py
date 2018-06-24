@@ -1,12 +1,34 @@
+import io
+import os
+
+# Imports the Google Cloud client library
 from flask import Flask, request, send_from_directory
+from google.cloud import speech
+from google.cloud.speech import enums
+from google.cloud.speech import types
 
 
 app = Flask(__name__, static_url_path='')
 
+CONFIG = types.RecognitionConfig(
+    encoding=enums.RecognitionConfig.AudioEncoding.ENCODING_UNSPECIFIED,
+    language_code='en-US')
+CLIENT = speech.SpeechClient()
 
-@app.route("/")
+
+@app.route('/')
 def root():
   return send_from_directory('', 'index.html')
+
+
+@app.route('/upload', methods=['POST'])
+def inputSoundHandler():
+  audio_file = request.files['data']
+  content = audio_file.read()
+  audio = types.RecognitionAudio(content=content)
+  response = CLIENT.recognize(CONFIG, audio)
+  print(response)
+  return 'ok'
 
 
 @app.route('/app/<path:path>')
