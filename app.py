@@ -28,7 +28,7 @@ def inputSoundHandler():
   audio = types.RecognitionAudio(content=content)
   response = CLIENT.recognize(CONFIG, audio)
   print(response)
-  return 'ok'
+  return response.results[0].alternatives[0].transcript
 
 
 @app.route('/app/<path:path>')

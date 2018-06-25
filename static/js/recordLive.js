@@ -22,15 +22,11 @@ function changeVolume(value) {
 
 function startRecording(button) {
   recorder && recorder.record();
-  button.disabled = true;
-  button.nextElementSibling.disabled = false;
   console.log('Recording...');
 }
 
 function stopRecording(button) {
   recorder && recorder.stop();
-  button.disabled = true;
-  button.previousElementSibling.disabled = false;
   console.log('Stopped recording.');
 
   // create WAV download link using audio data blob
@@ -81,7 +77,10 @@ function handleWAV(blob) {
      processData: false,
      contentType: false,
    }).done(function(data) {
-    alert(data);
+    var newCell = newRow.insertCell(-1);
+    var textElement = document.createElement('p');
+    textElement.innerHTML = data;
+    newCell.appendChild(textElement);
   });
   /**************************************************/
 }

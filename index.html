@@ -40,8 +40,7 @@
       <h2>Record</h2>
       <p>Record monitor volume: <input type="range" max="1" step="0.1" value="0" onchange="changeVolume(this.value)"/></p>
       <p>
-        <button class="btn btn-primary" onclick="startRecording(this);">Start</button>
-        <button class="btn btn-warning" onclick="stopRecording(this);" disabled>Stop</button>
+        <button class="btn btn-primary" onmousedown="startRecording(this)" onmouseup="stopRecording(this)">Record</button>
       </p>
       
       <table id="recordingslist">

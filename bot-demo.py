@@ -19,8 +19,8 @@ print(file_name)
 
 # Loads the audio into memory
 with io.open(file_name, 'rb') as audio_file:
-    content = audio_file.read()
-    audio = types.RecognitionAudio(content=content)
+  content = audio_file.read()
+  audio = types.RecognitionAudio(content=content)
 
 config = types.RecognitionConfig(
     encoding=enums.RecognitionConfig.AudioEncoding.ENCODING_UNSPECIFIED,
@@ -32,4 +32,4 @@ response = client.recognize(config, audio)
 print(response)
 
 for result in response.results:
-    print('Transcript: {}'.format(result.alternatives[0].transcript))
+  print('Transcript: {}'.format(result.alternatives[0].transcript))
