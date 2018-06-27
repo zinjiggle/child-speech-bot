@@ -1,6 +1,8 @@
 import io
 import os
 
+from nlp_lib import NlpTextHandler
+
 # Imports the Google Cloud client library
 from flask import Flask, request, send_from_directory
 from google.cloud import speech
@@ -28,7 +30,8 @@ def inputSoundHandler():
   audio = types.RecognitionAudio(content=content)
   response = CLIENT.recognize(CONFIG, audio)
   print(response)
-  return response.results[0].alternatives[0].transcript
+  text = response.results[0].alternatives[0].transcript
+  return NlpTextHandler(text)
 
 
 @app.route('/app/<path:path>')
